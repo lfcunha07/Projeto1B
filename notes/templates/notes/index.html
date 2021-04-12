@@ -1,0 +1,50 @@
+{% extends "notes/base.html" %}
+
+{% block content %}
+<body>
+
+  <div class="appbar">
+    {% load static %}
+    <img src="{% static 'notes/img/logo-getit.png' %}" class = "logo"/>
+    <span class="subtitle">Como o Post-it, mas com outro verbo</span>
+  </div>
+
+  <main class="container">
+    <form class="form-card" method="post">
+      {% csrf_token %}
+      <input
+        class="form-card-title"
+        id="titulo"
+        type="text"
+        name="titulo"
+        placeholder="Título"
+      />
+      <textarea
+        class="autoresize"
+        id="titulo"
+        type="text"
+        name="detalhes"
+        placeholder="Digite o conteúdo..."
+      ></textarea>
+      <button class="btn" type="submit">Criar</button>
+    </form>
+
+<ul class="card-container">
+  {% for note in notes %}
+  <li class="card">
+    <div>
+    </div>
+    <h3 class="card-title">{{note.title}}</h3>    
+    <div class="card-content">
+      <p>
+        {{note.content}}
+      </p>
+    </div>
+    <div class = "button">
+      <a href="{% url 'delete' note.id %}" class="button1">X</a>
+      <a href="{% url 'edit' note.id %}" class="button2">E</a>
+    </div>
+  </li>
+  {% endfor %}
+</ul>
+{% endblock %}
